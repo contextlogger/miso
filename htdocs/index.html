@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Miso</title>
+</head>
+
+<body>
+<h1 align="center">Miso</h1>
+
+<p align="center">
+<b>Mi</b>scellaneous <b>so</b>ftware?<br/>
+<b>Mi</b>xture of utilities for <b>S</b>ymbian <b>O</b>S?<br/>
+<b>味噌</b>?<br/>
+Your guess is as good as ours.
+</p>
+
+<p> Miso is a <a
+href="http://www.forum.nokia.com/python">Python for
+S60</a> utility library, which was developed in the <a
+href="http://pdis.hiit.fi/pdis/">PDIS project</a> at <a
+href="http://www.hiit.fi/">HIIT</a>. 
+The idea of the library is to provide simple utility
+functions and classes that are easy to implement
+using native Symbian OS resources, but which would
+be difficult or impossible to implement in pure Python.
+</p>
+
+<p>The library consists of a single Symbian OS native dynamic link
+library that has a Python interface. We have tested it on S60 v2
+and v3 phones only, but don't know of any reason why it would fail to run on S60 v1 phones. We have found the library to build with a number
+of different Nokia S60 SDKs, using GCC, GCCE and MSVC 6.0 compilers.
+We have done both Windows and Linux hosted builds, with Nokia and
+<a href="http://pdis.hiit.fi/pdis/download/sdk2unix/">sdk2unix</a> style SDK installations, respectively.</p>
+
+<p>Note that we are supplying binaries built for a number
+of different S60 platform versions, 
+despite all S60 releases except for
+3rd Edition having so far retained&#8212;to
+an extent&#8212;binary compatibility. 
+While most of the utilities in the
+library only make use of well-established APIs, and are thus likely to
+run on any somewhat binary compatible S60 device regardless of which build is
+being used, the library does have some platform specificity, to the
+extent that some functionality hasn't even been implemented for all
+versions of the S60 platform. To reduce the likelihood of
+incompatibilities, you're best off installing whichever SIS file is
+the closest match for your phone.</p>
+
+<h2>Version 1.92 (8.1.2007)</h2>
+
+<dl>
+<dt><a href="COPYING">license</a></dt>
+<dd>The license covering the software. (This file is also included in the source archive.)</dd>
+
+<dt><a href="miso-1.92-api.html">HTML</a> and <a href="miso-1.92-api.py">Python</a> API documentation</dt>
+<dd>HTML and Python files describing the API of the library. (These files are also included in the source archive.)</dd>
+
+<dt><a href="miso-1.92-s60_3rd_self.sisx">SISX file (for 3rd Ed)</a></dt> 
+<dd>A self-signed binary distribution, for installation onto an S60 3rd Edition device (Nokia 5500 Sport, 
+Nokia E50, Nokia E61, Nokia E70, Nokia N73, Nokia N80, Nokia N91, Nokia N93, &#8230;).</dd>
+
+<dt><a href="miso-1.92-s60_3rd_dev.sis">SIS file (for 3rd Ed)</a></dt> 
+<dd>An unsigned binary distribution for 3rd Edition devices, with maximum free DevCert capabilies assigned to the binary.</dd>
+
+<dt><a href="miso-1.92-s60_2nd_fp2.sis">SIS file (for v2.6)</a></dt>
+<dd>A binary distribution, for installation onto an S60 2nd Edition FP2 device (Nokia 6630, Nokia 6680, &#8230;).</dd>
+
+<dt><a href="miso-1.92-s60_2nd.sis">SIS file (for v2.0)</a></dt>
+<dd>A binary distribution, for installation onto an S60 2nd Edition device (Nokia 6260, Nokia 6600, Nokia 6670, Nokia 7610, &#8230;).</dd>
+
+<dt><a href="miso-1.92-s60_v0.9.sis">SIS file (for v0.9 and v1.x)</a></dt>
+<dd>A binary distribution, for installation onto an S60 1st Edition device (N-Gage, N-Gage QD, Nokia 3650, Nokia 7650, &#8230;). Untested.</dd>
+
+<dt><a href="miso-1.92-src.tar.gz">source code</a></dt>
+<dd>A source distribution.</dd>
+</dl>
+
+<p> 
+The first SourceForge release. Build script adjustments. Docstrings removed.
+</p>
+
+<h2>Version 1.91 (13.12.2006)</h2>
+
+<dl>
+<dt><a href="COPYING">license</a></dt>
+<dd>The license covering the software. (This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.91-api.html">HTML</a> and <a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.91-api.py">Python</a> API documentation</dt>
+<dd>HTML and Python files describing the API of the library. (These files are also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.91-s60_3rd_self.sisx">SISX file (for 3rd Ed)</a></dt> 
+<dd>A self-signed binary distribution, for installation onto an S60 3rd Edition device (Nokia 5500 Sport, 
+Nokia E50, Nokia E61, Nokia E70, Nokia N73, Nokia N80, Nokia N91, Nokia N93, &#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.91-s60_3rd_dev.sis">SIS file (for 3rd Ed)</a></dt> 
+<dd>An unsigned binary distribution for 3rd Edition devices, with maximum free DevCert capabilies assigned to the binary.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.91-s60_2nd_fp2.sis">SIS file (for v2.6)</a></dt>
+<dd>A binary distribution, for installation onto an S60 2nd Edition FP2 device (Nokia 6630, Nokia 6680, &#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.91-s60_2nd.sis">SIS file (for v2.0)</a></dt>
+<dd>A binary distribution, for installation onto an S60 2nd Edition device (Nokia 6260, Nokia 6600, Nokia 6670, Nokia 7610, &#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.91-s60_v0.9.sis">SIS file (for v0.9 and v1.x)</a></dt>
+<dd>A binary distribution, for installation onto an S60 1st Edition device (N-Gage, N-Gage QD, Nokia 3650, Nokia 7650, &#8230;). Untested.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.91-src.tar.gz">source code</a></dt>
+<dd>A source distribution.</dd>
+</dl>
+
+<p> 
+This version adds support for S60 3rd Edition, and drops functionality now built into PyS60 itself. Builds were made with PyS60 v1.3.x SDKs. PyS60 v1.3.15 or higher is required to run the 3rd Edition binary.
+</p>
+
+<p> API changes:
+</p>
+<ul>
+<li> Removed <code>take_photo</code>; use the PyS60 <code>camera</code> module instead.
+<li> Removed <code>disk_total_avail</code>; use the PyS60 <code>sysinfo.free_drivespace</code> function instead.
+<li> Removed <code>imei_code</code>; use the PyS60 <code>sysinfo.imei</code> function instead.
+</ul>
+
+<h2>Version 1.41 (2.11.2005)</h2>
+
+<dl>
+<dt><a href="COPYING">license</a></dt>
+<dd>The license covering the software.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.40-api.html">API documentation</a></dt>
+<dd>An HTML file describing the API of the library.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.41-s60_2nd_fp2.sis">SIS file (for
+v2.6)</a></dt> <dd>A binary distribution, for installation onto a
+Series 60 2nd Ed FP2 device (Nokia 6630, Nokia 6680, &#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.41-series60_v20.sis">SIS file (for v2.0)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 2nd
+Edition device (Nokia 6260, Nokia 6600, Nokia 6670, Nokia 7610,
+&#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.41-series60_v12.sis">SIS file (for v1.x)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 1st
+Edition device (N-Gage, N-Gage QD, Nokia 3650, Nokia 7650, &#8230;).
+Untested.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.41-src.tar.gz">source code</a></dt>
+<dd>A source distribution.</dd>
+</dl>
+
+<p> This version was built for Python for Series 60 v1.2, in case
+there are ABI changes. The source code has not changed from Miso
+v1.40. </p>
+
+<h2>Version 1.40 (13.6.2005)</h2>
+
+<dl>
+<dt><a href="COPYING">license</a></dt>
+<dd>The license covering the software.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.40-api.html">API documentation</a></dt>
+<dd>An HTML file describing the API of the library.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.40-s60_2nd_fp2.sis">SIS file (for
+v2.6)</a></dt> <dd>A binary distribution, for installation onto a
+Series 60 2nd Ed FP2 device (Nokia 6630, Nokia 6680, &#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.40-series60_v20.sis">SIS file (for v2.0)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 2nd
+Edition device (Nokia 6260, Nokia 6600, Nokia 6670, Nokia 7610,
+&#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.40-series60_v12.sis">SIS file (for v1.x)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 1st
+Edition device (N-Gage, N-Gage QD, Nokia 3650, Nokia 7650, &#8230;).
+Untested.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.40-src.tar.gz">source code</a></dt>
+<dd>A source distribution.</dd>
+</dl>
+
+<p> <code>take_photo</code> now accepts optional configuration
+parameters (courtesy of Andreas Hartl).
+</p>
+
+<h2>Version 1.30 (22.4.2005)</h2>
+
+<dl>
+<dt><a href="COPYING">license</a></dt>
+<dd>The license covering the software.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.30-api.html">API documentation</a></dt>
+<dd>An HTML file describing the API of the library.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.30-s60_2nd_fp2.sis">SIS file (for
+v2.6)</a></dt> <dd>A binary distribution, for installation onto a
+Series 60 2nd Ed FP2 device (Nokia 6630, &#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.30-series60_v20.sis">SIS file (for v2.0)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 2nd
+Edition device (Nokia 6260, Nokia 6600, Nokia 6670, Nokia 7610,
+&#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.30-series60_v12.sis">SIS file (for v1.x)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 1st
+Edition device (N-Gage, N-Gage QD, Nokia 3650, Nokia 7650, &#8230;).
+Untested.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.30-src.tar.gz">source code</a></dt>
+<dd>A source distribution.</dd>
+</dl>
+
+<p> Modified <code>take_photo</code> and <code>vibrate</code> to
+release the interpreter lock when they don't require it. Added some
+heap management related utility functions.
+</p>
+
+<h2>Version 1.20 (8.4.2005)</h2>
+
+<dl>
+<dt><a href="COPYING">license</a></dt>
+<dd>The license covering the software.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.20-api.html">API documentation</a></dt>
+<dd>An HTML file describing the API of the library.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.20-s60_2nd_fp2.sis">SIS file (for
+v2.6)</a></dt> <dd>A binary distribution, for installation onto a
+Series 60 2nd Ed FP2 device (Nokia 6630, &#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.20-series60_v20.sis">SIS file (for v2.0)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 2nd
+Edition device (Nokia 6260, Nokia 6600, Nokia 6670, Nokia 7610,
+&#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.20-series60_v12.sis">SIS file (for v1.x)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 1st
+Edition device (N-Gage, N-Gage QD, Nokia 3650, Nokia 7650, &#8230;).
+Untested.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.20-src.tar.gz">source code</a></dt>
+<dd>A source distribution.</dd>
+</dl>
+
+<p> Added <code>FsNotifyChange</code> class, which provides
+a filesystem change notification facility. Added a makefile
+that supports builds in an <a href="http://pdis.hiit.fi/pdis/download/sdk2unix/">sdk2unix</a>
+style build environment (tested with sdk2unix v1.5). </p>
+
+<h2>Version 1.10 (15.3.2005)</h2>
+
+<dl>
+<dt><a href="COPYING">license</a></dt>
+<dd>The license covering the software.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.10-api.html">API documentation</a></dt>
+<dd>An HTML file describing the API of the library.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.10-s60_2nd_fp2.sis">SIS file (for
+v2.6)</a></dt> <dd>A binary distribution, for installation onto a
+Series 60 2nd Ed FP2 device (Nokia 6630, &#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.10-series60_v20.sis">SIS file (for v2.0)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 2nd
+Edition device (Nokia 6260, Nokia 6600, Nokia 6670, Nokia 7610,
+&#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.10-series60_v12.sis">SIS file (for v1.x)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 1st
+Edition device (N-Gage, N-Gage QD, Nokia 3650, Nokia 7650, &#8230;).
+Untested.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.10-src.tar.gz">source code</a></dt>
+<dd>A source distribution.</dd>
+</dl>
+
+<p> <code>local_bt_address</code> now works on Symbian 8 phones
+also. Added a <code>vibrate</code> function, which is presently only
+enabled in v2.6 builds&#8212;all Series 60 2.0 devices supposedly
+support the required API, but in practice only more recent devices
+appear to have the required <code>vibractrl.dll</code> file. </p>
+
+<h2>Version 1.00 (5.3.2005)</h2>
+
+<dl>
+<dt><a href="COPYING">license</a></dt>
+<dd>The license covering the software.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.00-api.html">API documentation</a></dt>
+<dd>An HTML file describing the API of the library.
+(This file is also included in the source archive.)</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.00-s60_2nd_fp2.sis">SIS file (for
+v2.6)</a></dt> <dd>A binary distribution, for installation onto a
+Series 60 2nd Ed FP2 device (Nokia 6630, &#8230;). Untested.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.00-series60_v20.sis">SIS file (for v2.0)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 2nd
+Edition device (Nokia 6260, Nokia 6600, Nokia 6670, Nokia 7610,
+&#8230;).</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.00-series60_v12.sis">SIS file (for v1.x)</a></dt>
+<dd>A binary distribution, for installation onto a Series 60 1st
+Edition device (N-Gage, N-Gage QD, Nokia 3650, Nokia 7650, &#8230;).
+Untested.</dd>
+
+<dt><a href="http://pdis.hiit.fi/pdis/download/miso/miso-1.00-src.tar.gz">source code</a></dt>
+<dd>A source distribution.</dd>
+</dl>
+
+<p> Initial release. </p>
+
+<hr/>
+
+<a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=186138&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" align="right" /></a>
+
+<address>
+  Tero Hasu
+<br/>
+  <a href="mailto:tero.hasu@hut.fi">tero.hasu@hut.fi</a>
+</address>
+
+</body>
+</html>
