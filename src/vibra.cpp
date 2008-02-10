@@ -50,7 +50,7 @@ typedef MVibraControlObserver ObserverType;
 typedef CVibraControl ControllerType;
 #endif
 
-class CMisoVibra : public CBase, public ObserverType
+NONSHARABLE_CLASS(CMisoVibra) : public CBase, public ObserverType
 {
 public:
   static CMisoVibra* NewLC();

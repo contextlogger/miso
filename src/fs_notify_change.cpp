@@ -51,7 +51,7 @@ static void Panic(TInt aReason)
 // -------------------------------------------------------------------
 // C++ class...
 
-class CMisoFsNotifyChange : public CActive
+NONSHARABLE_CLASS(CMisoFsNotifyChange) : public CActive
 {
 public:
   static CMisoFsNotifyChange* NewLC();

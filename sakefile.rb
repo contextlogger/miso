@@ -27,13 +27,13 @@ else
   end
 end
 
-$signsisrc = File.join(ENV["HOME"], "symbian-signed", "signsis.rb")
-load($signsisrc) if File.exist? $signsisrc
-
 if $sake_op[:szeged]
   # use Szeged GCC 3.0 backport
   $epoc_gcc = "gcc-3.0-psion-98r2"
 end
+
+$signsisrc = File.join(ENV["HOME"], "symbian-signed", "signsis.rb")
+load($signsisrc) if File.exist? $signsisrc
 
 $builds = $kits.map do |kit|
   Sake::CompBuild.new :component => $comp, :devkit => kit
@@ -48,14 +48,14 @@ $builds = $builds.map do |build|
     # we create both self-signed and DevCert-signed variants.
 
     selfbuild = build.to_self_signed
-    selfbuild.cert_file = $sake_op[:cert] || $self_cert || raise
-    selfbuild.key_file = $sake_op[:key] || $key_file || raise
-    selfbuild.passphrase = $sake_op[:passphrase] || $key_password
+    selfbuild.cert_file = $sake_op[:cert] || $self_cert_file || raise
+    selfbuild.key_file = $sake_op[:key] || $self_key_file || raise
+    selfbuild.passphrase = $sake_op[:passphrase] || $self_key_password
 
     devbuild = build.to_dev_signed
-    devbuild.cert_file = $sake_op[:cert] || $dev_cert || raise
-    devbuild.key_file = $sake_op[:key] || $key_file || raise
-    devbuild.passphrase = $sake_op[:passphrase] || $key_password
+    devbuild.cert_file = $sake_op[:cert] || $dev_cert_file || raise
+    devbuild.key_file = $sake_op[:key] || $dev_key_file || raise
+    devbuild.passphrase = $sake_op[:passphrase] || $dev_key_password
 
     [selfbuild, devbuild]
   end
