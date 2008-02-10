@@ -34,6 +34,19 @@ def set_process_priority(priority):
     """
     pass
 
+def kill_process(spec, reason):
+    """
+    Ends the specified process(es). On S60 3rd Edition, the PowerMgmt
+    capability is required to successfully execute this function.
+    spec:: A Unicode string value. A pattern to match against either
+           the process name, which would typically consist of the
+           executable name and the UID. Examples are u"daemon.exe*" or
+           u"*[12345678]*".
+    reason:: An integer value. The reason code with which the process
+             should exit.
+    """
+    pass
+
 def num_alloc_heap_cells():
     """
     Returns the total number of cells allocated on the calling

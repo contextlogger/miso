@@ -54,7 +54,7 @@
 #endif
 
 // ----------------------------------------------------------------------
-// thread and process priorities
+// threads and processes
 
 static PyObject* miso_GetThreadPriority(PyObject* /*self*/, PyObject* /*args*/)
 {
@@ -90,6 +90,37 @@ static PyObject* miso_SetProcessPriority(PyObject* /*self*/, PyObject* args)
   RThread().SetProcessPriority(static_cast<TProcessPriority>(pri));
   
   RETURN_NO_VALUE;
+}
+
+static PyObject* miso_KillProcess(PyObject* /*self*/, PyObject* args)
+{
+  char* b;
+  int l;
+  int reason;
+  if (!PyArg_ParseTuple(args, "u#i", &b, &l, &reason))
+  {
+    return NULL;
+  }
+  TPtrC processSpec((TUint16*)b, l);
+
+  // The pattern is something like "test.exe*" or "*[12345678]*".
+  TFindProcess processFinder(processSpec);
+
+  TFullName result; // set to full process name by Next
+  RProcess processHandle;
+  TInt error;
+  int count = 0;
+  while (processFinder.Next(result) == KErrNone) 
+    {
+      error = processHandle.Open(processFinder, EOwnerThread);
+      if (error)
+	return SPyErr_SetFromSymbianOSErr(error);
+      processHandle.Kill(reason); // requires PowerMgmt capability
+      processHandle.Close();
+      count++;
+    }
+  
+  return Py_BuildValue("i", count);
 }
 
 // ----------------------------------------------------------------------
@@ -533,31 +564,32 @@ extern TInt def_MisoFsNotifyChange();
 
 static const PyMethodDef Miso_methods[] =
   {
-    {"get_thread_priority", (PyCFunction)miso_GetThreadPriority, METH_NOARGS, NULL},
-    {"set_thread_priority", (PyCFunction)miso_SetThreadPriority, METH_VARARGS, NULL},
-    {"get_process_priority", (PyCFunction)miso_GetProcessPriority, METH_NOARGS, NULL},
-    {"set_process_priority", (PyCFunction)miso_SetProcessPriority, METH_VARARGS, NULL},
-    {"num_alloc_heap_cells", (PyCFunction)miso_NumAllocHeapCells, METH_NOARGS, NULL},
-    {"num_free_heap_cells", (PyCFunction)miso_NumFreeHeapCells, METH_NOARGS, NULL},
-    {"alloc_heap_cells_size", (PyCFunction)miso_AllocHeapCellsSize, METH_NOARGS, NULL},
-    {"heap_biggest_avail", (PyCFunction)miso_HeapBiggestAvail, METH_NOARGS, NULL},
-    {"heap_total_avail", (PyCFunction)miso_HeapTotalAvail, METH_NOARGS, NULL},
-    {"check_heap", (PyCFunction)miso_CheckHeap, METH_NOARGS, NULL},
-    {"compress_all_heaps", (PyCFunction)misty_CompressAllHeaps, METH_NOARGS, NULL},
-    {"heap_base_address", (PyCFunction)miso_HeapBaseAddress, METH_NOARGS, NULL},
-    {"alloc_heap_cell", (PyCFunction)miso_AllocHeapCell, METH_VARARGS, NULL},
-    {"free_heap_cell", (PyCFunction)miso_FreeHeapCell, METH_VARARGS, NULL},
-    {"get_subst_path", (PyCFunction)miso_GetSubstPath, METH_VARARGS, NULL},
-    {"create_drive_subst", (PyCFunction)miso_CreateDriveSubst, METH_VARARGS, NULL},
-    {"local_bt_name", (PyCFunction)miso_LocalBtName, METH_NOARGS, NULL},
-    {"local_bt_address", (PyCFunction)miso_LocalBtAddress, METH_NOARGS, NULL},
-    {"set_hal_attr", (PyCFunction)miso_SetHalAttr, METH_VARARGS, NULL},
-    {"get_hal_attr", (PyCFunction)miso_GetHalAttr, METH_VARARGS, NULL},
-    {"tick_count", (PyCFunction)miso_TickCount, METH_NOARGS, NULL},
-    {"reset_inactivity_time", (PyCFunction)miso_ResetInactivityTime, METH_NOARGS, NULL},
-    {"restart_phone", (PyCFunction)miso_RestartPhone, METH_NOARGS, NULL},
-    {"vibrate", (PyCFunction)miso_Vibrate, METH_VARARGS, NULL},
-    {"FsNotifyChange", (PyCFunction)new_MisoFsNotifyChange, METH_NOARGS, NULL},
+    {"get_thread_priority", (PyCFunction)miso_GetThreadPriority, METH_NOARGS},
+    {"set_thread_priority", (PyCFunction)miso_SetThreadPriority, METH_VARARGS},
+    {"get_process_priority", (PyCFunction)miso_GetProcessPriority, METH_NOARGS},
+    {"set_process_priority", (PyCFunction)miso_SetProcessPriority, METH_VARARGS},
+    {"kill_process", (PyCFunction)miso_KillProcess, METH_VARARGS},
+    {"num_alloc_heap_cells", (PyCFunction)miso_NumAllocHeapCells, METH_NOARGS},
+    {"num_free_heap_cells", (PyCFunction)miso_NumFreeHeapCells, METH_NOARGS},
+    {"alloc_heap_cells_size", (PyCFunction)miso_AllocHeapCellsSize, METH_NOARGS},
+    {"heap_biggest_avail", (PyCFunction)miso_HeapBiggestAvail, METH_NOARGS},
+    {"heap_total_avail", (PyCFunction)miso_HeapTotalAvail, METH_NOARGS},
+    {"check_heap", (PyCFunction)miso_CheckHeap, METH_NOARGS},
+    {"compress_all_heaps", (PyCFunction)misty_CompressAllHeaps, METH_NOARGS},
+    {"heap_base_address", (PyCFunction)miso_HeapBaseAddress, METH_NOARGS},
+    {"alloc_heap_cell", (PyCFunction)miso_AllocHeapCell, METH_VARARGS},
+    {"free_heap_cell", (PyCFunction)miso_FreeHeapCell, METH_VARARGS},
+    {"get_subst_path", (PyCFunction)miso_GetSubstPath, METH_VARARGS},
+    {"create_drive_subst", (PyCFunction)miso_CreateDriveSubst, METH_VARARGS},
+    {"local_bt_name", (PyCFunction)miso_LocalBtName, METH_NOARGS},
+    {"local_bt_address", (PyCFunction)miso_LocalBtAddress, METH_NOARGS},
+    {"set_hal_attr", (PyCFunction)miso_SetHalAttr, METH_VARARGS},
+    {"get_hal_attr", (PyCFunction)miso_GetHalAttr, METH_VARARGS},
+    {"tick_count", (PyCFunction)miso_TickCount, METH_NOARGS},
+    {"reset_inactivity_time", (PyCFunction)miso_ResetInactivityTime, METH_NOARGS},
+    {"restart_phone", (PyCFunction)miso_RestartPhone, METH_NOARGS},
+    {"vibrate", (PyCFunction)miso_Vibrate, METH_VARARGS},
+    {"FsNotifyChange", (PyCFunction)new_MisoFsNotifyChange, METH_NOARGS},
     {NULL, NULL} /* sentinel */
   };
 
