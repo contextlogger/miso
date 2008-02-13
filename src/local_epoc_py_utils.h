@@ -61,4 +61,12 @@ return Py_False;
 TInt ConstructType(const PyTypeObject* aTypeTemplate,
 				   char* aClassName);
 
+// These possibly make the inclusion of this header order sensitive.
+#ifndef NONSHARABLE_CLASS
+#define NONSHARABLE_CLASS(x) class x
+#endif
+#ifndef NONSHARABLE_STRUCT
+#define NONSHARABLE_STRUCT(x) struct x
+#endif
+
 #endif // __LOCALEPOCPYUTILS_H__
