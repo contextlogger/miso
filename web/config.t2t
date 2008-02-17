@@ -8,4 +8,5 @@
 %!preproc(xhtml):  '^h3\.\s+(.*)$' '+++\1+++'
 %!preproc(xhtml):  '^h4\.\s+(.*)$' '++++\1++++'
 %!postproc(xhtml): 'Cxx' 'C++'
-%!postproc(xhtml): '_miso_meaning_' '<p align="center"><b>Mi</b>scellaneous <b>so</b>ftware?<br/><b>Mi</b>xture of utilities for <b>S</b>ymbian <b>O</b>S?<br/><b>味噌</b>?<br/>Your guess is as good as ours.</p>'
+%!postproc(xhtml): '_miso_meaning_' '<p align="center"><b>Mi</b>scellaneous <b>so</b>ftware?<br/><b>Mi</b>xture of utilities for <b>S</b>ymbian <b>O</b>S?<br/><b>&#x5473;&#x564c;</b>?<br/>Your guess is as good as ours.</p>'
+%!postproc(xhtml): '<head>' '<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>'

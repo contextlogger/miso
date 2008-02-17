@@ -154,6 +154,6 @@ task :release do
 end
 
 # A file in which to define uploading rules for a release.
-try_load('local/uploading.rb')
+try_load('local/upload.rb')
 
 Sake::Tasks::force_uncurrent_on_op_change
