@@ -10,7 +10,7 @@ require 'sake0/component'
 # The UID has been allocated from Symbian.
 $comp = Sake::Component.new(:basename => 'miso',
                             :vendor => "HIIT",
-                            :version => [1, 93],
+                            :version => [1, 94],
                             :uid_v8 => 0x10206ba4,
                             :caps => (%w{AllFiles} + Sake::DEV_CERT_CAPS))
 
