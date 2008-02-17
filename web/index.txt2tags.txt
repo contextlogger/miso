@@ -1,0 +1,103 @@
+Miso
+%%mtime(%c)
+
+%!includeconf: config.t2t
+%! Options : --toc --enum-title
+
+_miso_meaning_
+
+h1. Introduction
+
+Miso is a [Python for S60 http://www.forum.nokia.com/python] utility
+library, which was developed in the [PDIS http://pdis.hiit.fi/pdis/]
+project at [HIIT http://www.hiit.fi/]. The idea of the library is to
+provide simple utility functions and classes that are easy to
+implement using native Symbian OS resources, but which would be
+difficult or impossible to implement in pure Python.
+
+The library consists of a single Symbian OS native dynamic link
+library that has a Python interface. We have tested it on S60 v2 and
+v3 phones only, but don't know of any reason why it would fail to run
+on S60 v1 phones. We have found the library to build with a number of
+different Nokia S60 SDKs, using GCC, GCCE and MSVC 6.0 compilers. We
+have done both Windows and Linux hosted builds, with Nokia and
+[sdk2unix http://pdis.hiit.fi/pdis/download/sdk2unix/] style SDK
+installations, respectively.
+
+h1. Status
+
+Most of the Miso functionality has been around for a long time, and is
+thus reasonably well tested. We are not, however, too worried about
+adding (or removing) features of a more experimental nature.
+
+h1. Examples
+
+The [programs used to test Miso features ../test-programs] also serve as example programs.
+
+h1. License
+
+: [license COPYING]
+The license covering the software. (This file is also included in the source tree, and archived copies thereof.)
+
+
+h1. Documentation
+
+API documentation for the current (possibly unstable) version of Miso is available in both [HTML ../python-api/miso.html] and [Python ../src/miso.py] formats.
+
+Each (versioned) release of Miso also comes with API documentation. See the [downloads directory ../download] and the [older releases page older-releases.html].
+
+h1. Releases
+
+: Version
+1.93
+
+: Release Date
+17.2.2008
+
+: Changes
+Using the ``CHWRMVibra`` API for vibra functionality in 3rd edition builds.
+Added ``kill_process`` function.
+Made ``initmiso`` the only C++ export, also for GCCE builds.
+
+
+
+h2. Older Releases
+
+For binaries, source, and documentation of older releases of Miso, see the [older releases page older-releases.html].
+
+h1. Software Download
+
+A [collection of release builds ../download] is available. The ``sisx`` file without a version number is the latest release.
+
+Note that we are supplying binaries built for a number
+of different S60 platform versions, despite all S60 releases except for 3rd Edition having so far retained---to an extent---binary compatibility. While most of the utilities in the library only make use of well-established APIs, and are thus likely to run on any somewhat binary compatible S60 device regardless of which build is being used, the library does have some platform specificity, to the extent that some functionality hasn't even been implemented for all versions of the S60 platform. To reduce the likelihood of incompatibilities, you're best off installing whichever SIS file is the closest match for your phone.
+
+h1. Source Code
+
+A [darcs http://darcs.net/] repository of the [source code ..] (with
+change history) is also available, and can be retrieved with the
+``get`` command of ``darcs``.
+
+h1. Dependencies
+
+Depends on the [Python for S60 http://www.forum.nokia.com/python/] runtime. Does not depend on non-public APIs or anything exotic. Python must be installed on the target device to run this software. The appropriate Python SDK plugin(s) must be installed on the development host to build this software.
+
+h1. Contributing
+
+Contributions are welcome. Send patches to the below email address.
+The ``send`` command of ``darcs`` may be used.
+
+h2. SourceForge hosting
+
+The Miso source code repository is also hosted at [SourceForge http://sourceforge.net/], and while that repository presently does not contain the most recent code, this situation could be rectified if it should be helpful for contributors to have direct access to the source repository.
+
+- [SourceForge project summary page http://sourceforge.net/projects/pdis-miso/]
+- [web-based view to the source code repository http://pdis-miso.svn.sourceforge.net/]
+
+
+h1. Acknowledgements
+
+The work was initiated in the [PDIS http://pdis.hiit.fi/pdis/] project at [HIIT http://www.hiit.fi/].
+
+------------------------------------------------
+Tero Hasu /// tero.hasu@hut.fi

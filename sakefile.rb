@@ -14,9 +14,6 @@ $comp = Sake::Component.new(:basename => 'miso',
                             :uid_v8 => 0x10206ba4,
                             :caps => (%w{AllFiles} + Sake::DEV_CERT_CAPS))
 
-trunk_dir = Pathname.new(File.join(ENV["HOME"], "trunk"))
-$comp.web_dir = trunk_dir + "html" + "pdis" + "download" + $comp.basename
-
 if $sake_op[:kits]
   $kits = Sake::DevKits::get_exact_set($sake_op[:kits].strip.split(/,/))
 else
@@ -32,35 +29,21 @@ if $sake_op[:szeged]
   $epoc_gcc = "gcc-3.0-psion-98r2"
 end
 
-$signsisrc = File.join(ENV["HOME"], "symbian-signed", "signsis.rb")
-load($signsisrc) if File.exist? $signsisrc
-
 $builds = $kits.map do |kit|
   Sake::CompBuild.new :component => $comp, :devkit => kit
 end
-$builds = $builds.map do |build|
-  if build.target.symbian_platform.major_version < 9
-    build
-  else
-    # DevCert caps are not all that much use in Miso at present, but
-    # in case someone has signed their Python application with those
-    # caps, they will need a Miso with at least those caps as well. So
-    # we create both self-signed and DevCert-signed variants.
 
-    selfbuild = build.to_self_signed
-    selfbuild.cert_file = $sake_op[:cert] || $self_cert_file || raise
-    selfbuild.key_file = $sake_op[:key] || $self_key_file || raise
-    selfbuild.passphrase = $sake_op[:passphrase] || $self_key_password
-
-    devbuild = build.to_dev_signed
-    devbuild.cert_file = $sake_op[:cert] || $dev_cert_file || raise
-    devbuild.key_file = $sake_op[:key] || $dev_key_file || raise
-    devbuild.passphrase = $sake_op[:passphrase] || $dev_key_password
-
-    [selfbuild, devbuild]
-  end
+def try_load file
+  begin
+    load file
+  rescue LoadError; end
 end
-$builds.flatten!
+
+# For any v9 builds, configure certificate info for signing, if you do
+# want the SIS files signed as well as unsigned. You must set the
+# cert_file, key_file, and passphrase properties of each relevant
+# build for this.
+try_load('local/signing.rb')
 
 # We probably do not require separate documentation for every single
 # build variant, as at least the interface should be just about the
@@ -118,7 +101,59 @@ if $doc_build
   task :all => :pydoc
 end
 
-Sake::Tasks::def_dist_tasks :builds => $builds
-Sake::Tasks::def_web_tasks :builds => $builds
+desc "Prepares web pages."
+task :web do
+  generated = []
+
+  srcfiles = Dir['web/*.txt2tags.txt']
+  for srcfile in srcfiles
+    htmlfile = srcfile.sub(/\.txt2tags\.txt$/, ".html")
+    generated.push(htmlfile)
+    sh("tools/txt2tags --target xhtml --infile %s --outfile %s --encoding utf-8 --verbose" % [srcfile, htmlfile])
+  end
+
+  for htmlfile in Dir['web/*.html']
+    # Tidy does not quite like the txt2tags generated docs, so
+    # excluding them.
+    next if generated.include? htmlfile
+    sh("tidy", "-utf8", "-e", htmlfile.to_s)
+  end
+end
+
+desc "Prepares downloads for the current version."
+task :release do
+  web_dir = $doc_build.dir + "download"
+  comp = $comp
+  builds = $builds
+
+  api_sfile = comp.python_api_dir + (comp.basename + ".html")
+  api_dfile = web_dir + ("%s-%s-api.html" % [comp.basename, comp.version_string])
+  install api_sfile.to_s, api_dfile.to_s, :mode => 0644
+
+  api_sfile = (comp.src_dir + (comp.basename + ".py"))
+  api_dfile = web_dir + ("%s-%s-api.py" % [comp.basename, comp.version_string])
+  install api_sfile.to_s, api_dfile.to_s, :mode => 0644
+
+  unless $sake_op[:no_sis]
+    for build in builds
+      # For all targets we distribute and unsigned SIS, but in the case
+      # of 3rd edition, we only want an unsigned SIS for DevCert
+      # capability builds.
+      if build.target.edition < 3 or
+          build.sign_type == :dev_cert
+        install build.to_proj_rel(build.long_sis_file).to_s, web_dir.to_s, :mode => 0644
+      end
+
+      # For 3rd edition builds, we distribute a self-signed SIS.
+      if build.target.edition >= 3 and
+          build.sign_type == :self
+        install build.to_proj_rel(build.long_sisx_file).to_s, web_dir.to_s, :mode => 0644
+      end
+    end
+  end
+end
+
+# A file in which to define uploading rules for a release.
+try_load('local/uploading.rb')
 
 Sake::Tasks::force_uncurrent_on_op_change
