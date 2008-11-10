@@ -20,9 +20,10 @@ library that has a Python interface. We have tested it on S60 v2 and
 v3 phones only, but don't know of any reason why it would fail to run
 on S60 v1 phones. We have found the library to build with a number of
 different Nokia S60 SDKs, using GCC, GCCE and MSVC 6.0 compilers. We
-have done both Windows and Linux hosted builds, with Nokia and
-[sdk2unix http://pdis.hiit.fi/pdis/download/sdk2unix/] style SDK
-installations, respectively.
+have done both Windows and Linux hosted builds, with Nokia (on
+Windows), [GnuPoc http://www.hiit.fi/files/fi/da/gnupoc/] (on Linux),
+and [sdk2unix http://www.hiit.fi/files/fi/da/sdk2unix/] (on Linux)
+style SDK installations, respectively.
 
 h1. Status
 
@@ -49,11 +50,17 @@ Each (versioned) release of Miso also comes with API documentation. See the [dow
 h1. Releases
 
 : Version
-1.93
+1.94
+: Release Date
+xxx
+: Changes
+UID now of the test range, to allow for Open Signed Online use.
 
+
+: Version
+1.93
 : Release Date
 17.2.2008
-
 : Changes
 Using the ``CHWRMVibra`` API for vibra functionality in 3rd edition builds.
 Added ``kill_process`` function.

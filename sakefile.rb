@@ -11,7 +11,8 @@ require 'sake0/component'
 $comp = Sake::Component.new(:basename => 'miso',
                             :vendor => "HIIT",
                             :version => [1, 94],
-                            :uid_v8 => 0x10206ba4,
+                            :uid_v8 => 0x03462346,
+                            :uid_v9 => 0xe3462346,
                             :caps => (%w{AllFiles} + Sake::DEV_CERT_CAPS))
 
 if $sake_op[:kits]
