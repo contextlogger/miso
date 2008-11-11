@@ -209,6 +209,34 @@ static PyObject* miso_FreeHeapCell(PyObject* /*self*/, PyObject* args)
 }
 
 // ----------------------------------------------------------------------
+// stack information
+
+// This functionality is inspired by RLogMan.
+static PyObject* miso_StackInfo(PyObject* /*self*/, PyObject* args)
+{
+#ifdef __HAS_THREAD_STACK_INFO__
+  // Seeing as we are dealing with TUint32 values, converting these to
+  // Python integers is non-trivial, as Py_BuildValue does not take
+  // unsigned int values. So we better calculate values that ought to
+  // fit into a signed integer.
+  TLinAddr sp = 0; // TLinAddr == TUint32, TLinAddr in v9-up
+  sp = (TLinAddr)&sp;
+  RThread thread;
+  TThreadStackInfo threadStackInfo;
+  thread.StackInfo(threadStackInfo);
+  TUint32 cFree = sp - threadStackInfo.iLimit;
+  TUint32 cUsed = threadStackInfo.iBase - sp;
+  TUint32 cTotal = threadStackInfo.iBase - threadStackInfo.iLimit;
+  return Py_BuildValue("(iii)", 
+		       static_cast<int>(cFree),
+		       static_cast<int>(cUsed),
+		       static_cast<int>(cTotal));
+#else
+  return SPyErr_SetFromSymbianOSErr(KErrNotSupported);
+#endif
+}
+
+// ----------------------------------------------------------------------
 // disks
 
 #if 0
@@ -579,6 +607,7 @@ static const PyMethodDef Miso_methods[] =
     {"heap_base_address", (PyCFunction)miso_HeapBaseAddress, METH_NOARGS},
     {"alloc_heap_cell", (PyCFunction)miso_AllocHeapCell, METH_VARARGS},
     {"free_heap_cell", (PyCFunction)miso_FreeHeapCell, METH_VARARGS},
+    {"stack_info", (PyCFunction)miso_StackInfo, METH_NOARGS},
     {"get_subst_path", (PyCFunction)miso_GetSubstPath, METH_VARARGS},
     {"create_drive_subst", (PyCFunction)miso_CreateDriveSubst, METH_VARARGS},
     {"local_bt_name", (PyCFunction)miso_LocalBtName, METH_NOARGS},

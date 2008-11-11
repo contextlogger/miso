@@ -120,6 +120,17 @@ def free_heap_cell(address):
     """
     pass
 
+def stack_info():
+    """
+    Returns a tuple of three integers (free, used, total). "free" and
+    "used" indicate the amount of stack remaining and used up at the
+    point where this function is called. "total" gives the total stack
+    size allocated for the calling thread.
+    
+    Only supported on S60 3rd Edition and higher.
+    """
+    pass
+
 def get_subst_path(drive_num):
     """
     Returns the path assigned to the specified substed drive.
