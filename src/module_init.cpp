@@ -26,6 +26,8 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "sconfig.hrh"
+
 #include <e32std.h>
 #include <Python.h>
 #include <symbian_python_ext_util.h>

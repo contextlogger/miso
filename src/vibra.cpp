@@ -27,6 +27,8 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "sconfig.hrh"
+
 #ifdef __DO_LOGGING__
 #include <flogger.h> // flogger.lib required, Symbian 7.0-up
 _LIT(KLogFileDir, "miso");
