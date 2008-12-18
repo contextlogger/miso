@@ -52,9 +52,10 @@ h1. Releases
 : Version
 1.94
 : Release Date
-xxx
+18.12.2008
 : Changes
-UID now of the test range, to allow for Open Signed Online use.
+UID now of the test range, to allow for Open Signed Online use. (This probably means that v1.94 cannot be installed before uninstalling any earlier version.)
+Added ``stack_info`` function, inspired by [LogMan http://code.google.com/p/logman-for-symbian/] and its ``RLogMan::StackInfo`` function for logging stack usage. ``stack_info`` may be useful when getting KERN-EXEC 3 panics, and wondering whether there is enough stack space.
 
 
 : Version

@@ -173,28 +173,28 @@ task :all => [:makefiles, :bin, :sis]
 # one version.
 $doc_build = $builds.last
 
-# Configure any rules related to releasing and uploading and such
-# things. Probably at least involves copying or uploading the
-# distribution files somewhere.
-#try_load('local/releasing.rb')
-
-=begin
 if $doc_build
   # C++ API documentation.
   Sake::Tasks::def_doxygen_tasks(:build => $doc_build)
   task :all => :cxxdoc
 
   # Python API documentation.
-  py_file = $doc_build.src_dir + ($doc_build.component.basename + ".py")
+  py_file = $doc_build.src_dir + "miso.py"
   Sake::Tasks::def_pydoc_tasks(:build => $doc_build, :py_file => py_file)
   task :all => :pydoc
 end
 
+# Configure any rules related to releasing and uploading and such
+# things. Probably at least involves copying or uploading the
+# distribution files somewhere.
+try_load('local/releasing.rb')
+
 desc "Prepares web pages."
 task :web do
-  generated = []
+  #sh("darcs changes > web/changelog.txt")
 
   srcfiles = Dir['web/*.txt2tags.txt']
+  generated = []
   for srcfile in srcfiles
     htmlfile = srcfile.sub(/\.txt2tags\.txt$/, ".html")
     generated.push(htmlfile)
@@ -209,66 +209,18 @@ task :web do
   end
 end
 
-desc "Prepares downloads for the current version."
-task :release do
-  web_dir = $doc_build.dir + "download"
-  comp = $comp
-  builds = $builds
+dl_dir = $proj.download_dir
+dl_path = $proj.to_proj_rel(dl_dir).to_s
 
-  api_sfile = comp.python_api_dir + (comp.basename + ".html")
-  api_dfile = web_dir + ("%s-%s-api.html" % [comp.basename, comp.version_string])
-  install api_sfile.to_s, api_dfile.to_s, :mode => 0644
-
-  api_sfile = (comp.src_dir + (comp.basename + ".py"))
-  api_dfile = web_dir + ("%s-%s-api.py" % [comp.basename, comp.version_string])
-  install api_sfile.to_s, api_dfile.to_s, :mode => 0644
-
-  unless $sake_op[:no_sis]
-    for build in builds
-      # For all targets we distribute and unsigned SIS, but in the case
-      # of 3rd edition, we only want an unsigned SIS for DevCert
-      # capability builds.
-      if build.target.edition < 3 or
-          build.sign_type == :dev_cert
-        install build.to_proj_rel(build.long_sis_file).to_s, web_dir.to_s, :mode => 0644
-      end
-
-      # For 3rd edition builds, we distribute a self-signed SIS.
-      if build.target.edition >= 3 and
-          build.sign_type == :self
-        install build.to_proj_rel(build.long_sisx_file).to_s, web_dir.to_s, :mode => 0644
-      end
-    end
-  end
-end
-=end
-
-# A file in which to define uploading rules for a release.
-try_load('local/upload.rb')
-
-Sake::Tasks::force_uncurrent_on_op_change
-
-task :web_new do
-  srcfiles = Dir['web/*.txt2tags.txt']
-  sh("darcs changes > web/changelog.txt")
-  for srcfile in srcfiles
-    htmlfile = srcfile.sub(/\.txt2tags\.txt$/, ".html")
-    sh("tools/txt2tags --target xhtml --infile %s --outfile %s --encoding utf-8 --verbose" % [srcfile, htmlfile])
-  end
-end
-
-desc "Prepares downloads for the current version."
-task :release_new do
-  web_dir = "download"
-
-  mkdir_p web_dir
+task :release_sis do
+  mkdir_p dl_path
 
   for build in $builds
     ## Unsigned.
     if (not build.sign_sis?) or (build.sign_sis? and ($cert_name == "dev"))
       src_sis_file = build.to_proj_rel(build.long_sis_file).to_s
       sis_basename = File.basename(src_sis_file)
-      download_file = File.join(web_dir, sis_basename)
+      download_file = File.join(dl_path, sis_basename)
       ln(src_sis_file, download_file, :force => true)
     end
 
@@ -276,10 +228,21 @@ task :release_new do
     if build.sign_sis? and ($cert_name == "self")
       src_sis_file = build.to_proj_rel(build.long_sisx_file).to_s
       sis_basename = File.basename(src_sis_file)
-      download_file = File.join(web_dir, sis_basename)
+      download_file = File.join(dl_path, sis_basename)
       ln(src_sis_file, download_file, :force => true)
     end
   end
+end
+
+desc "Prepares downloads for the current version."
+task :release => [:web, :release_sis] do
+  api_sfile = $proj.python_api_dir + ($pyd.basename + ".html")
+  api_dfile = dl_dir + ("%s-%s-api.html" % [$pyd.basename, $proj.version_string])
+  install api_sfile.to_s, api_dfile.to_s, :mode => 0644
+
+  api_sfile = $proj.src_dir + ($pyd.basename + ".py")
+  api_dfile = dl_dir + ("%s-%s-api.py" % [$pyd.basename, $proj.version_string])
+  install api_sfile.to_s, api_dfile.to_s, :mode => 0644
 end
 
 def sis_info opt
@@ -289,6 +252,8 @@ def sis_info opt
     end
   end
 end
+
+Sake::Tasks::force_uncurrent_on_op_change
 
 task :sis_ls do
   sis_info "-i"
