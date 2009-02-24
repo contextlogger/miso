@@ -46,7 +46,7 @@ $basename = "miso"
 
 $proj = Sake::Project.new(:basename => $basename,
                           :name => "Miso Library for PyS60",
-                          :version => [1, 95],
+                          :version => [1, 96],
                           # This is a test UID.
                           :uid => Sake::Uid.v8($uid_v8),
                           :vendor => "HIIT")
