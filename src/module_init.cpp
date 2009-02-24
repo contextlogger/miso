@@ -94,6 +94,31 @@ static PyObject* miso_SetProcessPriority(PyObject* /*self*/, PyObject* args)
   RETURN_NO_VALUE;
 }
 
+static PyObject* miso_HaveProcess(PyObject* /*self*/, PyObject* args)
+{
+  char* b;
+  int l;
+  if (!PyArg_ParseTuple(args, "u#", &b, &l))
+  {
+    return NULL;
+  }
+  TPtrC processSpec((TUint16*)b, l);
+
+  // The pattern is something like "test.exe*" or "*[12345678]*".
+  TFindProcess processFinder(processSpec);
+
+  TFullName result; // set to full process name by Next
+  RProcess processHandle;
+
+  TInt error = processFinder.Next(result);
+  if (error == KErrNone)
+    return Py_BuildValue("i", 1); // true
+  else if (error == KErrNotFound)
+    return Py_BuildValue("i", 0); // false
+  else
+    return SPyErr_SetFromSymbianOSErr(error);
+}
+
 static PyObject* miso_KillProcess(PyObject* /*self*/, PyObject* args)
 {
   char* b;
@@ -598,6 +623,7 @@ static const PyMethodDef Miso_methods[] =
     {"set_thread_priority", (PyCFunction)miso_SetThreadPriority, METH_VARARGS},
     {"get_process_priority", (PyCFunction)miso_GetProcessPriority, METH_NOARGS},
     {"set_process_priority", (PyCFunction)miso_SetProcessPriority, METH_VARARGS},
+    {"have_process", (PyCFunction)miso_HaveProcess, METH_VARARGS},
     {"kill_process", (PyCFunction)miso_KillProcess, METH_VARARGS},
     {"num_alloc_heap_cells", (PyCFunction)miso_NumAllocHeapCells, METH_NOARGS},
     {"num_free_heap_cells", (PyCFunction)miso_NumFreeHeapCells, METH_NOARGS},

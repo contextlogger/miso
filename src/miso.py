@@ -34,6 +34,14 @@ def set_process_priority(priority):
     """
     pass
 
+def have_process(spec):
+    """
+    Returns a true or false value indicating whether there are any
+    processes running that match the given process name pattern.
+    spec:: As for kill_process.
+    """
+    pass
+
 def kill_process(spec, reason):
     """
     Ends the specified process(es). On S60 3rd Edition, the PowerMgmt
