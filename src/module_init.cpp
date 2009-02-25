@@ -56,6 +56,14 @@
 #endif
 
 // ----------------------------------------------------------------------
+// Miso
+
+static PyObject* miso_GetVersion(PyObject* /*self*/, PyObject* /*args*/)
+{
+  return Py_BuildValue("i", static_cast<int>(__MISO_VERSION__));
+}
+
+// ----------------------------------------------------------------------
 // threads and processes
 
 static PyObject* miso_GetThreadPriority(PyObject* /*self*/, PyObject* /*args*/)
@@ -619,6 +627,7 @@ extern TInt def_MisoFsNotifyChange();
 
 static const PyMethodDef Miso_methods[] =
   {
+    {"miso_version", (PyCFunction)miso_GetVersion, METH_NOARGS},
     {"get_thread_priority", (PyCFunction)miso_GetThreadPriority, METH_NOARGS},
     {"set_thread_priority", (PyCFunction)miso_SetThreadPriority, METH_VARARGS},
     {"get_process_priority", (PyCFunction)miso_GetProcessPriority, METH_NOARGS},

@@ -43,10 +43,11 @@ end
 
 $uid_v8 = 0x03462346
 $basename = "miso"
+$version = [1, 96]
 
 $proj = Sake::Project.new(:basename => $basename,
                           :name => "Miso Library for PyS60",
-                          :version => [1, 96],
+                          :version => $version,
                           # This is a test UID.
                           :uid => Sake::Uid.v8($uid_v8),
                           :vendor => "HIIT")
@@ -157,6 +158,8 @@ for build in $builds
   if build.uid
     map[:uid] = HexNum.new(build.uid.number)
   end
+
+  map[:miso_version] = ($version[0] * 100 + $version[1])
 
   # NDEBUG controls whether asserts are to be compiled in (NDEBUG is
   # defined in UDEB builds). Normally an assert results in something
