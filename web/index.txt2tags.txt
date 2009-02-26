@@ -50,6 +50,14 @@ Each (versioned) release of Miso also comes with API documentation. See the [dow
 h1. Releases
 
 : Version
+1.96
+: Release Date
+26.2.2009
+: Changes
+Added ``have_process`` (cf. ``kill_process``) and ``miso_version`` functions.
+
+
+: Version
 1.95
 : Release Date
 3.1.2009
@@ -103,7 +111,7 @@ h1. Contributing
 Contributions are welcome. Send patches to the below email address.
 The ``send`` command of ``darcs`` may be used.
 
-h2. SourceForge hosting
+h2. SourceForge Hosting
 
 The Miso source code repository is also hosted at [SourceForge http://sourceforge.net/], and while that repository presently does not contain the most recent code, this situation could be rectified if it should be helpful for contributors to have direct access to the source repository.
 
@@ -114,6 +122,13 @@ The Miso source code repository is also hosted at [SourceForge http://sourceforg
 h1. Acknowledgements
 
 The work was initiated in the [PDIS http://pdis.hiit.fi/pdis/] project at [HIIT http://www.hiit.fi/].
+
+h1. Related Work at HIIT
+
+A number of Python for S60 extensions have been developed at HIIT.
+These include:
+
+_pys60_extension_list_
 
 ------------------------------------------------
 Tero Hasu /// tero.hasu@hut.fi
