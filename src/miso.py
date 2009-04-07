@@ -222,7 +222,8 @@ def restart_phone():
     safe (to system integrity) it is to call this function even when
     it does work. A perhaps more common way for reboots in Python is
     to invoke appuifw.e32.start_exe(u'z:\\sys\\bin\\starter.exe', ''),
-    but again, the safety caveat applies.
+    but again, the safety caveat applies. And reportedly starting from
+    S60 v3.2, neither method works.
     """
     pass
 

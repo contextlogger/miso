@@ -212,7 +212,7 @@ if $doc_build
 
   # Python API documentation.
   py_file = $doc_build.src_dir + "miso.py"
-  Sake::Tasks::def_pydoc_tasks(:build => $doc_build, :py_file => py_file)
+  Sake::Tasks::def_epydoc_tasks(:build => $doc_build, :py_file => py_file)
   task :all => :pydoc
 end
 
