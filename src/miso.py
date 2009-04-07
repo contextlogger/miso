@@ -216,6 +216,13 @@ def reset_inactivity_time():
 def restart_phone():
     """
     Restarts the device.
+    
+    Note that this is presently implemented using a private API, and
+    it is unknown exactly on what devices this will work, or even how
+    safe (to system integrity) it is to call this function even when
+    it does work. A perhaps more common way for reboots in Python is
+    to invoke appuifw.e32.start_exe(u'z:\\sys\\bin\\starter.exe', ''),
+    but again, the safety caveat applies.
     """
     pass
 
