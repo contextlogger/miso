@@ -537,6 +537,8 @@ static PyObject* miso_ResetInactivityTime(PyObject* /*self*/, PyObject* /*args*/
 // ----------------------------------------------------------------------
 // reset, reboot...
 
+#if defined(__HAS_SYS_STARTUP__)
+
 /* UserSvr::ResetMachine would not appear to work (at least not reliably) on S60 2nd FP2 at least, so we are instead using a non-public API. Credit for this goes to Mika Raento, who adviced about the existence of the API, and provided information about it. See also http://meaning.3xi.org/download/source/meaning-20060905.tar.gz. */
 
 // Merkitys codebase has info on other values, but this one is enough for us,
@@ -567,6 +569,15 @@ static PyObject* miso_RestartPhone(PyObject* /*self*/, PyObject* /*args*/)
   
   RETURN_NO_VALUE;
 }
+
+#else // not defined(__HAS_SYS_STARTUP__)
+
+static PyObject* miso_RestartPhone(PyObject* /*self*/, PyObject* /*args*/)
+{
+  return SPyErr_SetFromSymbianOSErr(KErrNotSupported);
+}
+
+#endif
 
 // ----------------------------------------------------------------------
 // vibration
