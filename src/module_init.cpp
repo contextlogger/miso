@@ -673,7 +673,7 @@ static const PyMethodDef Miso_methods[] =
 DL_EXPORT(void) initmiso()
 {
   PyObject* module = 
-    Py_InitModule("miso", METHOD_TABLE(Miso));
+    Py_InitModule(__MODULE_NAME__, METHOD_TABLE(Miso));
   if (!module)
     return;
 

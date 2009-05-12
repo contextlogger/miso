@@ -163,18 +163,70 @@ class HexNum
   end
 end
 
-$exeb = Hash.new
-for build in $builds
-  map = build.trait_map
+class Sake::CompBuild
+  def binary_prefix
+    case $pys60_version
+    when 1 then "_"
+    when 2 then "kf_"
+    else raise end
+  end
+
+  def binary_suffix
+    return "" unless v9?
+    "_" + uid3.chex_string
+  end
+
+  def binary_file
+    generated_file("%s%s%s.%s" % [binary_prefix,
+                                  bin_basename,
+                                  binary_suffix,
+                                  target_ext])
+  end
+
+  def needs_pyd_wrapper?
+    # Not really essential, but we want this to allow builds for
+    # different PyS60 versions to coexist. This is possible as there
+    # is a PyS60 version specific directory for wrappers, but not for
+    # binaries.
+    v9?
+  end
+
+  def pyd_wrapper_basename
+    bin_basename
+  end
+
+  def pyd_wrapper_file
+    generated_file(pyd_wrapper_basename + ".py")
+  end
+
+  def pyd_wrapper_path_in_pkg
+    # To look for suitable paths, use
+    #
+    #   import sys
+    #   sys.path
+    #
+    # Yes, it seems putting wrappers on E: is not an option.
+    case $pys60_version
+    when 1 then "c:\\resource\\"
+    when 2 then "c:\\resource\\python25\\"
+    else raise end
+  end
+end
+
+$cbuild_by_pbuild = Hash.new
+for pbuild in $builds
+  map = pbuild.trait_map
 
   # To define __UID__ for header files.
-  if build.uid
-    map[:uid] = HexNum.new(build.uid.number)
+  if pbuild.uid
+    map[:uid] = HexNum.new(pbuild.uid.number)
   end
 
   map[:pys60_version] = $pys60_version
 
   map[:miso_version] = ($version[0] * 100 + $version[1])
+
+  map[:module_name] = (pbuild.v9? ? "_miso" : "miso")
 
   # NDEBUG controls whether asserts are to be compiled in (NDEBUG is
   # defined in UDEB builds). Normally an assert results in something
@@ -189,10 +241,10 @@ for build in $builds
   end
 
   # Each build variant shall have all of the components.
-  build.comp_builds = $comp_list.map do |comp|
-    b = Sake::CompBuild.new(:proj_build => build,
+  pbuild.comp_builds = $comp_list.map do |comp|
+    b = Sake::CompBuild.new(:proj_build => pbuild,
                             :component => comp)
-    $exeb[build] = b
+    $cbuild_by_pbuild[pbuild] = b
     b
   end
 end
@@ -205,7 +257,7 @@ Sake::Tasks::def_list_devices_tasks(:builds => $builds)
 
 Sake::Tasks::def_makefile_tasks(:builds => $builds)
 
-Sake::Tasks::def_binary_tasks(:builds => $builds)
+Sake::Tasks::def_binary_tasks(:builds => $builds, :pyd_wrapper => true)
 
 Sake::Tasks::def_sis_tasks(:builds => $builds)
 

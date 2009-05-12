@@ -269,7 +269,7 @@ const static PyTypeObject tmpl_MisoFsNotifyChange =
   {
     PyObject_HEAD_INIT(NULL)
     0, /*ob_size*/
-    "miso.FsNotifyChange", /*tp_name*/
+    __MODULE_NAME__ ".FsNotifyChange", /*tp_name*/
     sizeof(obj_MisoFsNotifyChange), /*tp_basicsize*/
     0, /*tp_itemsize*/
     /* methods */
@@ -287,12 +287,12 @@ const static PyTypeObject tmpl_MisoFsNotifyChange =
 
 TInt def_MisoFsNotifyChange()
 {
-  return ConstructType(&tmpl_MisoFsNotifyChange, "miso.FsNotifyChange");
+  return ConstructType(&tmpl_MisoFsNotifyChange, __MODULE_NAME__ ".FsNotifyChange");
 }
 
 PyObject* new_MisoFsNotifyChange(PyObject* /*self*/, PyObject* /*args*/)
 {
-  PyTypeObject* typeObject = reinterpret_cast<PyTypeObject*>(SPyGetGlobalString("miso.FsNotifyChange"));
+  PyTypeObject* typeObject = reinterpret_cast<PyTypeObject*>(SPyGetGlobalString(__MODULE_NAME__ ".FsNotifyChange"));
   obj_MisoFsNotifyChange* self = PyObject_New(obj_MisoFsNotifyChange, typeObject);
   if (self == NULL)
       return NULL;

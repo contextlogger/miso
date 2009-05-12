@@ -1,0 +1,58 @@
+targettype 	dll
+
+target	       	<%= build.binary_file.basename.to_s %>
+
+<% unless build.v9? %>
+TARGETPATH      \system\libs\
+<% end %>
+
+UID             <%= build.uid2.chex_string %> <%= build.uid3.chex_string %>
+
+NOSTRICTDEF
+EXPORTUNFROZEN
+
+SYSTEMINCLUDE 	\epoc32\include
+
+<% case $pys60_version when 1 %>
+SYSTEMINCLUDE 	\epoc32\include\libc
+systeminclude 	\epoc32\include\python
+library 	python222.lib
+<% when 2 %>
+SYSTEMINCLUDE 	\epoc32\include\stdapis
+systeminclude 	\epoc32\include\python25
+library 	python25.lib
+<% else raise end %>
+
+library 	euser.lib
+library 	bluetooth.lib
+library 	efsrv.lib
+library 	esock.lib
+library 	hal.lib
+library 	sysutil.lib
+
+<% if build.trait_map[:has_hwrmvibra] %>
+library 	hwrmvibraclient.lib
+<% elsif build.trait_map[:has_vibractrl] %>
+library		vibractrl.lib
+<% end %>
+
+<% if build.trait_map[:do_logging] %>
+LIBRARY         flogger.lib
+<% end %>
+
+USERINCLUDE 	.
+USERINCLUDE 	..\..\src
+
+SOURCEPATH 	..\..\src
+source 		fs_notify_change.cpp
+source 		local_epoc_py_utils.cpp
+source 		module_init.cpp
+
+<% if build.trait_map[:has_vibractrl] or build.trait_map[:has_hwrmvibra] %>
+source 		vibra.cpp
+<% end %>
+
+<% if build.v9? %>
+// Better use all DevCert caps to allow processes with higher caps to load the library.
+CAPABILITY 	<%= build.caps_string %>
+<% end %>
