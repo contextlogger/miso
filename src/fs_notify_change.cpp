@@ -117,7 +117,7 @@ void CMisoFsNotifyChange::ConstructL()
 void CMisoFsNotifyChange::RunL()
 {
   TInt error = iStatus.Int();
-  PyEval_RestoreThread(PYTHON_TLS->thread_state);
+  GIL_ENSURE;
   // if this fails, an exception should get set,
   // and probably thrown later in some other context;
   // note that it seems that the parameter must be
@@ -137,7 +137,7 @@ void CMisoFsNotifyChange::RunL()
 	  Panic(EPanicExceptionInCallback);
 	}
     }
-  PyEval_SaveThread();
+  GIL_RELEASE;
 }
 
 void CMisoFsNotifyChange::RunError()

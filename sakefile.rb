@@ -41,12 +41,22 @@ def try_load file
   rescue LoadError; end
 end
 
-$uid_v8 = 0x03462346
+$pys60_version = ($sake_op[:pys60] ? $sake_op[:pys60].to_i : 1)
+
+case $pys60_version
+when 1
+  $uid_v8 = 0x03462346
+when 2
+  $uid_v8 = 0x03462347
+else
+  raise "unsupported PyS60 version"
+end
+
 $basename = "miso"
 $version = [1, 97]
 
 $proj = Sake::Project.new(:basename => $basename,
-                          :name => "Miso Library for PyS60",
+                          :name => "Miso for PyS60v#{$pys60_version}",
                           :version => $version,
                           # This is a test UID.
                           :uid => Sake::Uid.v8($uid_v8),
@@ -80,7 +90,7 @@ else
 end
 
 $kits.delete_if do |kit|
-  !kit.supports_python?
+  !kit.supports_python_v?($pys60_version)
 end
 
 if $sake_op[:comps]
@@ -93,6 +103,9 @@ end
 $builds = $kits.map do |kit|
   build = Sake::ProjBuild.new(:project => $proj,
                               :devkit => kit)
+  if $pys60_version == 2
+    build.handle = (build.handle + "_py2")
+  end
   build.abld_platform = (build.v9? ? "gcce" : "armi")
   build.abld_build = ($sake_op[:udeb] ? "udeb" : "urel")
   if $sake_op[:udeb]
@@ -158,6 +171,8 @@ for build in $builds
   if build.uid
     map[:uid] = HexNum.new(build.uid.number)
   end
+
+  map[:pys60_version] = $pys60_version
 
   map[:miso_version] = ($version[0] * 100 + $version[1])
 

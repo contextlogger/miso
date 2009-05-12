@@ -20,8 +20,8 @@ def get_thread_priority():
 
 def set_thread_priority(priority):
     """
-    priority:: An integer value. See get_thread_priority()
-               documentation for a list of legal values.
+    @param priority:: An integer value. See get_thread_priority()
+                      documentation for a list of legal values.
     """
     pass
 
@@ -37,8 +37,8 @@ def get_process_priority():
 
 def set_process_priority(priority):
     """
-    priority:: An integer value. See get_process_priority()
-               documentation for a list of legal values.
+    @param priority:: An integer value. See get_process_priority()
+                      documentation for a list of legal values.
     """
     pass
 
@@ -46,7 +46,7 @@ def have_process(spec):
     """
     Returns a true or false value indicating whether there are any
     processes running that match the given process name pattern.
-    spec:: As for kill_process.
+    @param spec:: As for kill_process.
     """
     pass
 
@@ -54,12 +54,12 @@ def kill_process(spec, reason):
     """
     Ends the specified process(es). On S60 3rd Edition, the PowerMgmt
     capability is required to successfully execute this function.
-    spec:: A Unicode string value. A pattern to match against either
-           the process name, which would typically consist of the
-           executable name and the UID. Examples are u"daemon.exe*" or
-           u"*[12345678]*".
-    reason:: An integer value. The reason code with which the process
-             should exit.
+    @param spec:: A Unicode string value. A pattern to match against
+                  either the process name, which would typically
+                  consist of the executable name and the UID. Examples
+                  are u"daemon.exe*" or u"*[12345678]*".
+    @param reason:: An integer value. The reason code with which the
+                    process should exit.
     """
     pass
 
@@ -123,7 +123,7 @@ def alloc_heap_cell(size):
     Allocates a cell of at least the specified size from the current
     thread's heap.
 
-    size:: An integer value.
+    @param size:: An integer value.
     """
     pass
 
@@ -132,7 +132,7 @@ def free_heap_cell(address):
     Frees the heap cell at the specified address. Passing an invalid
     address will result in a panic.
     
-    address:: An integer value.
+    @param address:: An integer value.
     """
     pass
 
@@ -151,7 +151,7 @@ def get_subst_path(drive_num):
     """
     Returns the path assigned to the specified substed drive.
     
-    drive_num:: An integer specifying a drive number.
+    @param drive_num:: An integer specifying a drive number.
     """
     pass
     
@@ -160,8 +160,8 @@ def create_drive_subst(drive_num, path):
     Assigns a path to a drive letter. To clear an existing
     substitution, specify an empty string as the path.
 
-    drive_num:: An integer specifying a drive number.
-    path:: A unicode string specifying the path.
+    @param drive_num:: An integer specifying a drive number.
+    @param path:: A unicode string specifying the path.
     """
     pass
 
@@ -184,8 +184,8 @@ def local_bt_address():
 def set_hal_attr(attr, value):
     """
     Sets the specified HAL attribute to the specified value.
-    attr:: An integer specifying the attribute.
-    value:: An integer specifying its value.
+    @param attr:: An integer specifying the attribute.
+    @param value:: An integer specifying its value.
     """
     pass
 
@@ -193,7 +193,7 @@ def get_hal_attr(attr):
     """
     Gets the value of the specified HAL attribute.
     
-    attr:: An integer specifying the attribute.
+    @param attr:: An integer specifying the attribute.
     """
     pass
 
@@ -241,8 +241,8 @@ def vibrate(duration, intensity):
     Vibration will not work unless enabled in the profile. Only
     supported on S60 2nd Ed FP2 and higher.
 
-    duration:: An integer.
-    intensity:: An integer.
+    @param duration:: An integer.
+    @param intensity:: An integer.
     """
     pass
 
