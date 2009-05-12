@@ -53,7 +53,7 @@ else
 end
 
 $basename = "miso"
-$version = [1, 97]
+$version = [1, 98]
 
 $proj = Sake::Project.new(:basename => $basename,
                           :name => "Miso for PyS60v#{$pys60_version}",
@@ -227,7 +227,9 @@ for pbuild in $builds
 
   map[:miso_version] = ($version[0] * 100 + $version[1])
 
-  map[:module_name] = (pbuild.v9? ? "_miso" : "miso")
+  module_name = (pbuild.v9? ? "_miso" : "miso")
+  map[:module_name] = module_name
+  map[:init_func_name] = ("init" + module_name).to_sym
 
   # NDEBUG controls whether asserts are to be compiled in (NDEBUG is
   # defined in UDEB builds). Normally an assert results in something

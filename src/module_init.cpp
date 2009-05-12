@@ -670,7 +670,7 @@ static const PyMethodDef Miso_methods[] =
     {NULL, NULL} /* sentinel */
   };
 
-DL_EXPORT(void) initmiso()
+DL_EXPORT(void) __INIT_FUNC_NAME__()
 {
   PyObject* module = 
     Py_InitModule(__MODULE_NAME__, METHOD_TABLE(Miso));
