@@ -50,6 +50,15 @@ Each (versioned) release of Miso also comes with API documentation. See the [dow
 h1. Releases
 
 : Version
+1.97
+: Release Date
+13.5.2009
+: Changes
+Now built with S60 v3.2 SDK also. (v3.2 build signed with Location capability.)
+All S60 v3.x builds now have both PyS60 1.4.5 and 1.9.4 variants.
+
+
+: Version
 1.96
 : Release Date
 26.2.2009
@@ -91,7 +100,7 @@ For binaries, source, and documentation of older releases of Miso, see the [olde
 
 h1. Software Download
 
-A [collection of release builds ../download] is available. The ``sisx`` file without a version number is the latest release.
+A [collection of release builds ../download] is available. The ``sisx`` installation packages are signed, while the ``sis`` ones are not. ``s60_3x`` variants require signing, whereas ``s60_1x`` and ``s60_2x`` variants do not. The ``self`` variants have maximum self-signed capabilities, while the ``dev`` variants have maximum Symbian Open Signed capabilities. The ``py1`` variants are for Python for S60 v1.3/v1.4, while the ``py2`` variants are for Python for S60 v1.9.
 
 Note that we are supplying binaries built for a number
 of different S60 platform versions, despite all S60 releases except for 3rd Edition having so far retained---to an extent---binary compatibility. While most of the utilities in the library only make use of well-established APIs, and are thus likely to run on any somewhat binary compatible S60 device regardless of which build is being used, the library does have some platform specificity, to the extent that some functionality hasn't even been implemented for all versions of the S60 platform. To reduce the likelihood of incompatibilities, you're best off installing whichever SIS file is the closest match for your phone.

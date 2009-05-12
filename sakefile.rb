@@ -103,8 +103,8 @@ end
 $builds = $kits.map do |kit|
   build = Sake::ProjBuild.new(:project => $proj,
                               :devkit => kit)
-  if $pys60_version == 2
-    build.handle = (build.handle + "_py2")
+  if build.v9?
+    build.handle = (build.handle + ("_py%d" % $pys60_version))
   end
   build.abld_platform = (build.v9? ? "gcce" : "armi")
   build.abld_build = ($sake_op[:udeb] ? "udeb" : "urel")
@@ -165,6 +165,7 @@ end
 
 class Sake::CompBuild
   def binary_prefix
+    return "" unless v9?
     case $pys60_version
     when 1 then "_"
     when 2 then "kf_"
@@ -263,6 +264,8 @@ Sake::Tasks::def_sis_tasks(:builds => $builds)
 
 Sake::Tasks::def_clean_tasks(:builds => $builds)
 
+# :all and :release together do everything. :all by itself does not
+# touch the downloads containing version-numbered files.
 task :all => [:makefiles, :bin, :sis]
 
 # We probably do not require separate documentation for every single
@@ -290,7 +293,7 @@ try_load('local/releasing.rb')
 
 desc "Prepares web pages."
 task :web do
-  #sh("darcs changes > web/changelog.txt")
+  sh("darcs changes > web/changelog.txt")
 
   srcfiles = Dir['web/*.txt2tags.txt']
   generated = []
@@ -304,9 +307,10 @@ task :web do
     # Tidy does not quite like the txt2tags generated docs, so
     # excluding them.
     next if generated.include? htmlfile
-    sh("tidy", "-utf8", "-e", htmlfile.to_s)
+    sh("tidy", "-utf8", "-eq", htmlfile.to_s)
   end
 end
+task :all => :web
 
 dl_dir = $proj.download_dir
 dl_path = $proj.to_proj_rel(dl_dir).to_s
@@ -334,10 +338,11 @@ task :release_sis do
 end
 
 desc "Prepares downloads for the current version."
-task :release => [:web, :release_sis] do
-  api_sfile = $proj.python_api_dir + ($pyd.basename + ".html")
-  api_dfile = dl_dir + ("%s-%s-api.html" % [$pyd.basename, $proj.version_string])
-  install api_sfile.to_s, api_dfile.to_s, :mode => 0644
+task :release => [:release_sis] do
+  # The .py file is enough. HTML only for most recent release.
+  #api_sfile = $proj.python_api_dir + ($pyd.basename + ".html")
+  #api_dfile = dl_dir + ("%s-%s-api.html" % [$pyd.basename, $proj.version_string])
+  #install api_sfile.to_s, api_dfile.to_s, :mode => 0644
 
   api_sfile = $proj.src_dir + ($pyd.basename + ".py")
   api_dfile = dl_dir + ("%s-%s-api.py" % [$pyd.basename, $proj.version_string])

@@ -1,6 +1,6 @@
 def miso_version():
     """
-    Returns the version number of this library, as an decimal integer
+    Returns the version number of this library, as a decimal integer
     of the form xyy, where x is the major version, and yy is the minor
     version.
     """
