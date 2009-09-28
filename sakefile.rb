@@ -225,9 +225,9 @@ for pbuild in $builds
 
   map[:pys60_version] = $pys60_version
 
-  map[:miso_version] = ($version[0] * 100 + $version[1])
+  map[($basename + "_version").to_sym] = ($version[0] * 100 + $version[1])
 
-  module_name = (pbuild.v9? ? "_miso" : "miso")
+  module_name = (pbuild.v9? ? ("_" + $basename) : $basename)
   map[:module_name] = module_name
   map[:init_func_name] = ("init" + module_name).to_sym
 
