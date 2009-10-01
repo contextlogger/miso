@@ -175,10 +175,13 @@ end
 class Sake::CompBuild
   def binary_prefix
     return "" unless v9?
-    case $pys60_version
-    when 1 then "_"
-    when 2 then "kf_"
-    else raise end
+    pfx =
+      case $pys60_version
+      when 1 then ""
+      when 2 then "kf_"
+      else raise end
+    pfx += "_" if needs_pyd_wrapper?
+    pfx
   end
 
   def binary_suffix
