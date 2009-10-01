@@ -50,6 +50,17 @@ Each (versioned) release of Miso also comes with API documentation. See the [dow
 h1. Releases
 
 : Version
+1.98
+: Release Date
+2.10.2009
+: Changes
+Due to reported problems with ``imp.load_dynamic``, now building
+without a ``.py`` wrapper---were not using it for pure Python
+additions anyway. S60 v3.1 and v3.2 ``py2`` variants now built for
+PyS60 1.9.7.
+
+
+: Version
 1.97
 : Release Date
 13.5.2009
