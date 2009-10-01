@@ -13,13 +13,17 @@
 
 <% cbuild = $cbuild_by_pbuild[build]
    dllname = cbuild.binary_file.basename.to_s 
-   wrapname = cbuild.pyd_wrapper_file.basename.to_s 
-   wrappath = cbuild.pyd_wrapper_path_in_pkg
+   if build.needs_pyd_wrapper?
+     wrapname = cbuild.pyd_wrapper_file.basename.to_s 
+     wrappath = cbuild.pyd_wrapper_path_in_pkg
+   end
 %>
 
 <% if build.v9? %>
 "<%= dllname %>" - "!:\sys\bin\<%= dllname %>"
+<% if build.needs_pyd_wrapper? %>
 "<%= wrapname %>" - "<%= wrappath %><%= wrapname %>"
+<% end %>
 <% else %>
 "<%= dllname %>" - "!:\system\libs\<%= dllname %>"
 <% end %>

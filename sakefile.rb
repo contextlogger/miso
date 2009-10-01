@@ -163,6 +163,15 @@ class HexNum
   end
 end
 
+class Sake::ProjBuild
+  def needs_pyd_wrapper?
+    # Some problems with imp.load_dynamic, better avoid the issue for
+    # now, especially as we are not using the wrapper to include pure
+    # Python code yet.
+    false # v9?
+  end
+end
+
 class Sake::CompBuild
   def binary_prefix
     return "" unless v9?
@@ -173,7 +182,7 @@ class Sake::CompBuild
   end
 
   def binary_suffix
-    return "" unless v9?
+    return "" unless needs_pyd_wrapper?
     "_" + uid3.chex_string
   end
 
@@ -182,14 +191,6 @@ class Sake::CompBuild
                                   bin_basename,
                                   binary_suffix,
                                   target_ext])
-  end
-
-  def needs_pyd_wrapper?
-    # Not really essential, but we want this to allow builds for
-    # different PyS60 versions to coexist. This is possible as there
-    # is a PyS60 version specific directory for wrappers, but not for
-    # binaries.
-    v9?
   end
 
   def pyd_wrapper_basename
@@ -227,9 +228,9 @@ for pbuild in $builds
 
   map[($basename + "_version").to_sym] = ($version[0] * 100 + $version[1])
 
-  module_name = (pbuild.v9? ? ("_" + $basename) : $basename)
-  map[:module_name] = module_name
-  map[:init_func_name] = ("init" + module_name).to_sym
+  modname = (pbuild.needs_pyd_wrapper? ? ("_" + $basename) : $basename)
+  map[:module_name] = modname
+  map[:init_func_name] = ("init" + modname).to_sym
 
   # NDEBUG controls whether asserts are to be compiled in (NDEBUG is
   # defined in UDEB builds). Normally an assert results in something
