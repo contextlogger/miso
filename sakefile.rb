@@ -53,7 +53,7 @@ else
 end
 
 $basename = "miso"
-$version = [1, 98]
+$version = [1, 99]
 
 $proj = Sake::Project.new(:basename => $basename,
                           :name => "Miso for PyS60v#{$pys60_version}",
