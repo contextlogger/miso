@@ -33,10 +33,11 @@
 #include <symbian_python_ext_util.h>
 #include "local_epoc_py_utils.h"
 
-#include <f32file.h> // RFs
-#include <es_sock.h> // RSocketServ
-#include <bttypes.h> // TBTDevAddr
+#include <apgcli.h> // RApaLsSession
 #include <bt_sock.h> // BT protocol family constants
+#include <bttypes.h> // TBTDevAddr
+#include <es_sock.h> // RSocketServ
+#include <f32file.h> // RFs
 #include <hal.h> // HAL
 
 #ifdef __BTDEVICENAME_IN_BTMANCLIENT__
@@ -116,7 +117,6 @@ static PyObject* miso_HaveProcess(PyObject* /*self*/, PyObject* args)
   TFindProcess processFinder(processSpec);
 
   TFullName result; // set to full process name by Next
-  RProcess processHandle;
 
   TInt error = processFinder.Next(result);
   if (error == KErrNone)
@@ -158,6 +158,46 @@ static PyObject* miso_KillProcess(PyObject* /*self*/, PyObject* args)
   return Py_BuildValue("i", count);
 }
 
+// ----------------------------------------------------------------------
+// installed apps
+
+static TBool IsAppInstalledL(TUid& aUid)
+{
+  TBool result = EFalse;
+  RApaLsSession ls;
+  User::LeaveIfError(ls.Connect());
+  CleanupClosePushL(ls);
+  TApaAppInfo appInfo;
+  TInt errCode = ls.GetAppInfo(appInfo, aUid);
+  if (errCode == KErrNotFound)
+    result = EFalse;
+  else if (errCode)
+    User::Leave(errCode);
+  else
+    result = ETrue;
+  CleanupStack::PopAndDestroy(); // ls
+  return result;
+}
+
+static PyObject* miso_IsAppInstalled(PyObject* /*self*/, PyObject* args)
+{
+  int uidInt;
+  if (!PyArg_ParseTuple(args, "i", &uidInt))
+    {
+      return NULL;
+    }
+
+  TUid uid;
+  uid.iUid = uidInt;
+  TBool result = EFalse;
+  TRAPD(error, result = IsAppInstalledL(uid));
+  if (error) {
+    return SPyErr_SetFromSymbianOSErr(error);
+  }
+
+  return Py_BuildValue("i", result ? 1 : 0);
+}
+  
 // ----------------------------------------------------------------------
 // heap information
 
@@ -645,6 +685,7 @@ static const PyMethodDef Miso_methods[] =
     {"set_process_priority", (PyCFunction)miso_SetProcessPriority, METH_VARARGS},
     {"have_process", (PyCFunction)miso_HaveProcess, METH_VARARGS},
     {"kill_process", (PyCFunction)miso_KillProcess, METH_VARARGS},
+    {"is_app_installed", (PyCFunction)miso_IsAppInstalled, METH_VARARGS},
     {"num_alloc_heap_cells", (PyCFunction)miso_NumAllocHeapCells, METH_NOARGS},
     {"num_free_heap_cells", (PyCFunction)miso_NumFreeHeapCells, METH_NOARGS},
     {"alloc_heap_cells_size", (PyCFunction)miso_AllocHeapCellsSize, METH_NOARGS},
@@ -670,7 +711,7 @@ static const PyMethodDef Miso_methods[] =
     {NULL, NULL} /* sentinel */
   };
 
-DL_EXPORT(void) __INIT_FUNC_NAME__()
+EXPORT_PYD_ENTRY(__INIT_FUNC_NAME__)
 {
   PyObject* module = 
     Py_InitModule(__MODULE_NAME__, METHOD_TABLE(Miso));

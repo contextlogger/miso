@@ -63,6 +63,16 @@ def kill_process(spec, reason):
     """
     pass
 
+def is_app_installed(uid):
+    """
+    Returns a boolean value indicating whether the application with
+    the specified UID is installed or not. This function only concerns
+    applications, and not libraries, for instance.
+    @param uid:: The application UID, i.e. an integer value "uniquely"
+                 identifying an application.
+    """
+    pass
+
 def num_alloc_heap_cells():
     """
     Returns the total number of cells allocated on the calling

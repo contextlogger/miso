@@ -23,6 +23,8 @@ systeminclude 	\epoc32\include\python25
 library 	python25.lib
 <% else raise end %>
 
+library	        apgrfx.lib
+library	        apparc.lib
 library 	euser.lib
 library 	bluetooth.lib
 library 	efsrv.lib

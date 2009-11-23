@@ -343,8 +343,24 @@ task :release_sis do
   end
 end
 
+TAR_FMT = "tar -c -z -v -f %s '--exclude=*_dev/*.sisx' '--exclude=*dev.sisx' '--exclude=*~' '--exclude=#*' '--exclude=.*' '--exclude=*.pyc' build doxyfile-int Makefile README sakefile.rb src tools web"
+
+desc "Prepares a snapshot of current devel source."
+task :snapshot do
+  mkdir_p dl_path
+  tar_file = dl_dir + ("%s-devel-src.tar.gz" % [$basename])
+  sh(TAR_FMT % [tar_file])
+end
+
+desc "Prepares a release source snapshot."
+task :release_src do
+  mkdir_p dl_path
+  tar_file = dl_dir + ("%s-%s-src.tar.gz" % [$basename, $proj.version_string])
+  sh(TAR_FMT % [tar_file])
+end
+
 desc "Prepares downloads for the current version."
-task :release => [:release_sis] do
+task :release => [:release_sis, :release_src] do
   # The .py file is enough. HTML only for most recent release.
   #api_sfile = $proj.python_api_dir + ($pyd.basename + ".html")
   #api_dfile = dl_dir + ("%s-%s-api.html" % [$pyd.basename, $proj.version_string])

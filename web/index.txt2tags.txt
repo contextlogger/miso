@@ -45,8 +45,6 @@ h1. Documentation
 
 API documentation for the current (possibly unstable) version of Miso is available in both [HTML ../python-api/html/index.html] and [Python ../src/miso.py] formats.
 
-Each (versioned) release of Miso also comes with API documentation. See the [downloads directory ../download] and the [older releases page older-releases.html].
-
 h1. Releases
 
 : Version
