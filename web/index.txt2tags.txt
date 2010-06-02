@@ -16,8 +16,8 @@ implement using native Symbian OS resources, but which would be
 difficult or impossible to implement in pure Python.
 
 The library consists of a single Symbian OS native dynamic link
-library that has a Python interface. We have tested it on S60 v2 and
-v3 phones only, but don't know of any reason why it would fail to run
+library that has a Python interface. We have tested it on S60 v2, v3 and
+v5 phones only, but don't know of any reason why it would fail to run
 on S60 v1 phones. We have found the library to build with a number of
 different Nokia S60 SDKs, using GCC, GCCE and MSVC 6.0 compilers. We
 have done both Windows and Linux hosted builds, with Nokia (on
@@ -46,6 +46,16 @@ h1. Documentation
 API documentation for the current (possibly unstable) version of Miso is available in both [HTML ../python-api/html/index.html] and [Python ../src/miso.py] formats.
 
 h1. Releases
+
+: Version
+1.99
+: Release Date
+2.6.2010
+: Changes
+Added ``is_app_installed`` function. There now is an S60 v5.0 build of
+the ``py2`` variant, which does away with an incompatibility warning during
+installation. 3rd and 5th Edition builds are now against PyS60 2.0.0.
+
 
 : Version
 1.98
