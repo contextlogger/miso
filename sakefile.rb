@@ -111,6 +111,10 @@ $builds = $kits.map do |kit|
   if $sake_op[:udeb]
     build.handle = (build.handle + "_udeb")
   end
+  if $sake_op[:span_5th]
+    build.handle = (build.handle + "_5th")
+    $span_s60_5th = true
+  end
   build
 end
 
