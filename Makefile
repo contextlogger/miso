@@ -6,7 +6,7 @@ v1 :
 	sake --trace kits=s60_30 cert=dev pys60=1
 
 v2 :
-	sake --trace kits=s60_30 cert=dev pys60=2
+	sake --trace kits=s60_50 cert=dev pys60=2
 
 # This may be useful for building a Miso that installs on
 # both 3rd and 5th edition devices without complaints.

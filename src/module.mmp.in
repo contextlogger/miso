@@ -58,3 +58,8 @@ source 		vibra.cpp
 // Better use all DevCert caps to allow processes with higher caps to load the library.
 CAPABILITY 	<%= build.caps_string %>
 <% end %>
+
+<% gccver = ENV['EPOCGCCVER']
+   if gccver =~ /^4[.]/ %>
+OPTION GCCE -fpermissive
+<% end %>
