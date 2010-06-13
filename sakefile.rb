@@ -115,6 +115,12 @@ $builds = $kits.map do |kit|
     build.handle = (build.handle + "_5th")
     $span_s60_5th = true
   end
+  if build.v9_up?
+    build.gcc_version = ($sake_op[:gcce] ? $sake_op[:gcce].to_i : 3)
+    if build.gcc_version > 3
+      build.handle = (build.handle + ("_gcce%d" % build.gcc_version))
+    end
+  end
   build
 end
 

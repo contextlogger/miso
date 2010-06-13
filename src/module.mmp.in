@@ -61,7 +61,6 @@ source 		vibra.cpp
 CAPABILITY 	<%= build.caps_string %>
 <% end %>
 
-<% gccver = ENV['EPOCGCCVER']
-   if gccver =~ /^4[.]/ %>
+<% if build.gcc_version == 4 %>
 OPTION GCCE -fpermissive
 <% end %>
