@@ -1,5 +1,5 @@
 PRJ_PLATFORMS 
-<% if build.v9? %>
+<% if build.v9_up? %>
 winscw gcce
 <% else %>
 wins thumb armi

@@ -1,5 +1,5 @@
 # -*- ruby -*-
-# sake variant sake3
+# sake variant sake4
 
 #
 # sakefile.rb
@@ -33,7 +33,7 @@
 # The build tool driving this makefile is a custom one. The required
 # version has not yet been released.
 
-require 'sake3/component'
+require 'sake4/component'
 
 def try_load file
   begin
@@ -103,10 +103,10 @@ end
 $builds = $kits.map do |kit|
   build = Sake::ProjBuild.new(:project => $proj,
                               :devkit => kit)
-  if build.v9?
+  if build.v9_up?
     build.handle = (build.handle + ("_py%d" % $pys60_version))
   end
-  build.abld_platform = (build.v9? ? "gcce" : "armi")
+  build.abld_platform = (build.v9_up? ? "gcce" : "armi")
   build.abld_build = ($sake_op[:udeb] ? "udeb" : "urel")
   if $sake_op[:udeb]
     build.handle = (build.handle + "_udeb")
@@ -130,6 +130,10 @@ if $sake_op[:builds]
   $builds.delete_if do |build|
     !blist.include?(build.handle)
   end
+end
+
+$builds.sort! do |x,y|
+  x.handle <=> y.handle
 end
 
 desc "Prints a list of possible builds."
@@ -178,7 +182,7 @@ end
 
 class Sake::CompBuild
   def binary_prefix
-    return "" unless v9?
+    return "" if v8_down?
     pfx =
       case $pys60_version
       when 1 then ""
@@ -262,7 +266,7 @@ end
 
 task :default => [:bin, :sis]
 
-require 'sake3/tasks'
+require 'sake4/tasks'
 
 Sake::Tasks::def_list_devices_tasks(:builds => $builds)
 

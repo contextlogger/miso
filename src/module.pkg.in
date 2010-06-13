@@ -1,6 +1,6 @@
 #{"<%= build.name %>"}, (<%= build.uid.chex_string %>), <%= build.major_version %>, <%= build.minor_version %>, 0
 
-<% if build.v9? %>
+<% if build.v9_up? %>
 ;Localised Vendor name
 %{"<%= build.vendor %>"}
 
@@ -22,7 +22,7 @@
    end
 %>
 
-<% if build.v9? %>
+<% if build.v9_up? %>
 "<%= dllname %>" - "!:\sys\bin\<%= dllname %>"
 <% if build.needs_pyd_wrapper? %>
 "<%= wrapname %>" - "<%= wrappath %><%= wrapname %>"

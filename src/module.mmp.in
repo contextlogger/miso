@@ -1,8 +1,10 @@
+// build: <%= build.handle %>
+
 targettype 	dll
 
 target	       	<%= build.binary_file.basename.to_s %>
 
-<% unless build.v9? %>
+<% if build.v8_down? %>
 TARGETPATH      \system\libs\
 <% end %>
 
@@ -54,7 +56,7 @@ source 		module_init.cpp
 source 		vibra.cpp
 <% end %>
 
-<% if build.v9? %>
+<% if build.v9_up? %>
 // Better use all DevCert caps to allow processes with higher caps to load the library.
 CAPABILITY 	<%= build.caps_string %>
 <% end %>
