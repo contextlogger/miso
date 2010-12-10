@@ -52,8 +52,10 @@ else
   raise "unsupported PyS60 version"
 end
 
+load("version")
+
 $basename = "miso"
-$version = [2, 0]
+$version = MISOVER.to_s.split(".").map {|x| x.to_i}
 
 $proj = Sake::Project.new(:basename => $basename,
                           :name => "Miso for PyS60v#{$pys60_version}",
