@@ -1,4 +1,5 @@
-ABOUT
+About
+-----
 
 This is Miso, a utility library for Python on Series 60, consisting
 solely of a single Symbian native DLL. It contains odd utilities that
@@ -6,7 +7,13 @@ are not in the PyS60 platform itself (and which would mostly seem out
 of place there), and are perhaps too small to warrant maintaining in
 their own library.
 
-CONTENTS
+Homepage
+--------
+
+http://new.contextlogger.org/miso/
+
+Contents
+--------
 
 The material to be found in this source distribution includes:
 
@@ -26,7 +33,7 @@ The material to be found in this source distribution includes:
     changing the API provided by the native Python library, please
     also modify miso.py accordingly.
 
-  * README -- this file.
+  * README.md -- this file.
 
   * src/ -- C++ source for the native library.
 
@@ -36,7 +43,8 @@ The material to be found in this source distribution includes:
   * web/ -- website material; also contains the license covering
     this software.
 
-BUILDING
+Building
+--------
 
 The library should build with a number of different C++ compilers
 against a number of different S60 system API versions, provided that
@@ -46,7 +54,8 @@ etc.) are chosen.
 The Symbian (and GnuPoc) style makefiles have been generated using the
 provided top-level makefile (sakefile.rb).
 
-CONTRIBUTIONS
+Contributions
+-------------
 
 Contributions to Miso are welcome. If you have a snippet of Symbian
 code that you would like to make available from Python, consider
