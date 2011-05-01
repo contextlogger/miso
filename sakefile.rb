@@ -313,27 +313,6 @@ end
 # distribution files somewhere.
 try_load('local/releasing.rb')
 
-desc "Prepares web pages."
-task :web do
-  sh("darcs changes > web/changelog.txt")
-
-  srcfiles = Dir['web/*.txt2tags.txt']
-  generated = []
-  for srcfile in srcfiles
-    htmlfile = srcfile.sub(/\.txt2tags\.txt$/, ".html")
-    generated.push(htmlfile)
-    sh("tools/txt2tags --target xhtml --infile %s --outfile %s --encoding utf-8 --verbose" % [srcfile, htmlfile])
-  end
-
-  for htmlfile in Dir['web/*.html']
-    # Tidy does not quite like the txt2tags generated docs, so
-    # excluding them.
-    next if generated.include? htmlfile
-    sh("tidy", "-utf8", "-eq", htmlfile.to_s)
-  end
-end
-task :all => :web
-
 dl_dir = $proj.download_dir
 dl_path = $proj.to_proj_rel(dl_dir).to_s
 

@@ -2,13 +2,13 @@
 \#*
 .\#*
 *.swp
+*.pyc
 .DS_Store
 .sake_op
 _darcs/
 build/
 download/
 local/
-web/*.css
-web/*.html
+web/
 doxyfile-*
 *-api/

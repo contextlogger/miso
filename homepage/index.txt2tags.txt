@@ -1,14 +1,13 @@
 Miso
 %%mtime(%c)
 
-%!includeconf: config.t2t
 %! Options : --toc --enum-title
 
 _miso_meaning_
 
 h1. Introduction
 
-Miso is a [Python for S60 http://www.forum.nokia.com/python] utility
+Miso is a [Python for S60 https://garage.maemo.org/projects/pys60] utility
 library, which was developed in the [PDIS http://pdis.hiit.fi/pdis/]
 project at [HIIT http://www.hiit.fi/]. The idea of the library is to
 provide simple utility functions and classes that are easy to
@@ -33,17 +32,17 @@ adding (or removing) features of a more experimental nature.
 
 h1. Examples
 
-The [programs used to test Miso features ../test-programs] also serve as example programs.
+The [programs used to test Miso features https://github.com/contextlogger/miso/tree/master/test-programs] also serve as example programs.
 
 h1. License
 
-: [license COPYING]
+: [license LICENSE.txt]
 The license covering the software. (This file is also included in the source tree, and archived copies thereof.)
 
 
 h1. Documentation
 
-API documentation for the current (possibly unstable) version of Miso is available in both [HTML ../python-api/html/index.html] and [Python ../src/miso.py] formats.
+API documentation for the current (possibly unstable) version of Miso is available in both [HTML python-api/html/index.html] and [Python https://github.com/contextlogger/miso/tree/master/src/miso.py] formats.
 
 h1. Releases
 
@@ -117,46 +116,28 @@ h2. Older Releases
 
 For binaries, source, and documentation of older releases of Miso, see the [older releases page older-releases.html].
 
-h1. Software Download
+h1. Download
 
-A [collection of release builds ../download] is available. The ``sisx`` installation packages are signed, while the ``sis`` ones are not. ``s60_3x`` variants require signing, whereas ``s60_1x`` and ``s60_2x`` variants do not. The ``self`` variants have maximum self-signed capabilities, while the ``dev`` variants have maximum Symbian Open Signed capabilities. The ``py1`` variants are for Python for S60 v1.3/v1.4, while the ``py2`` variants are for Python for S60 v1.9.
+A [collection of release builds download/] is available. The ``sisx`` installation packages are signed, while the ``sis`` ones are not. ``s60_3x`` variants require signing, whereas ``s60_1x`` and ``s60_2x`` variants do not. The ``self`` variants have maximum self-signed capabilities, while the ``dev`` variants have maximum Symbian Open Signed capabilities. The ``py1`` variants are for Python for S60 v1.3/v1.4, while the ``py2`` variants are for Python for S60 v1.9/v2.0.
 
 Note that we are supplying binaries built for a number
 of different S60 platform versions, despite all S60 releases except for 3rd Edition having so far retained---to an extent---binary compatibility. While most of the utilities in the library only make use of well-established APIs, and are thus likely to run on any somewhat binary compatible S60 device regardless of which build is being used, the library does have some platform specificity, to the extent that some functionality hasn't even been implemented for all versions of the S60 platform. To reduce the likelihood of incompatibilities, you're best off installing whichever SIS file is the closest match for your phone.
 
-h1. Source Code
+You may or may not find the [changelog https://github.com/contextlogger/miso/commits/master/] useful in trying to determine what has changed between releases.
 
-A [darcs http://darcs.net/] repository of the [source code ..] (with
-change history) is also available, and can be retrieved with the
-``get`` command of ``darcs``.
+A [Git http://git-scm.com/] repository of the source code (with change history) is also available, hosted on GitHub at http://github.com/contextlogger/miso.
 
 h1. Dependencies
 
-Depends on the [Python for S60 http://www.forum.nokia.com/python/] runtime. Does not depend on non-public APIs or anything exotic. Python must be installed on the target device to run this software. The appropriate Python SDK plugin(s) must be installed on the development host to build this software.
-
-h1. Contributing
-
-Contributions are welcome. Send patches to the below email address.
-The ``send`` command of ``darcs`` may be used.
-
-h2. SourceForge Hosting
-
-The Miso source code repository is also hosted at [SourceForge http://sourceforge.net/], and while that repository presently does not contain the most recent code, this situation could be rectified if it should be helpful for contributors to have direct access to the source repository.
-
-- [SourceForge project summary page http://sourceforge.net/projects/pdis-miso/]
-- [web-based view to the source code repository http://pdis-miso.svn.sourceforge.net/]
-
+Depends on the Python for S60 runtime. Does not depend on non-public APIs or anything exotic. Python must be installed on the target device to run this software. The appropriate Python SDK plugin(s) must be installed on the development host to build this software.
 
 h1. Acknowledgements
 
 The work was initiated in the [PDIS http://pdis.hiit.fi/pdis/] project at [HIIT http://www.hiit.fi/].
 
-h1. Related Work at HIIT
-
-A number of Python for S60 extensions have been developed at HIIT.
-These include:
-
-_pys60_extension_list_
-
 ------------------------------------------------
-Tero Hasu /// tero.hasu@hut.fi
+_signature_th_
+
+% Local Variables:
+% mode: longlines
+% End:
