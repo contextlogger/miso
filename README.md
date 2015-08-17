@@ -10,7 +10,7 @@ their own library.
 Homepage
 --------
 
-http://new.contextlogger.org/miso/
+http://contextlogger.org/miso/
 
 Contents
 --------
